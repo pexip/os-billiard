@@ -1,0 +1,16 @@
+Description: Do not install install funtests package
+Author: Michael Fladischer <FladischerMichael@fladi.at>
+Last-Update: 2013-07-01
+Forwarded: no
+
+--- a/setup.py
++++ b/setup.py
+@@ -214,7 +214,7 @@
+         ]
+     exclude = 'billiard.py2' if is_py3k else 'billiard.py3'
+     packages = find_packages(exclude=[
+-        'ez_setup', 'tests', 'funtests.*', 'tests.*', exclude,
++        'ez_setup', 'tests', 'funtests', 'funtests.*', 'tests.*', exclude,
+     ])
+     setup(
+         name='billiard',

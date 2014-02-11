@@ -1,0 +1,9 @@
+Document: python-billiard-doc
+Title: Python Billiard Documentation
+Author: Ask Solem
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-billiard-doc/html/index.html
+Files: /usr/share/doc/python-billiard-doc/html/*.html
+       /usr/share/doc/python-billiard-doc/html/library/*.html

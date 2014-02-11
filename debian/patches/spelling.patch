@@ -1,0 +1,16 @@
+Description: Fix spelling error in upstream
+Author: Michael Fladischer <FladischerMichael@fladi.at>
+Last-Update: 2013-07-01
+Forwarded: no
+
+--- a/Modules/_billiard/multiprocessing.c
++++ b/Modules/_billiard/multiprocessing.c
+@@ -68,7 +68,7 @@
+         break;
+     default:
+         PyErr_Format(PyExc_RuntimeError,
+-                     "unkown error number %d", num);
++                     "unknown error number %d", num);
+     }
+     return NULL;
+ }

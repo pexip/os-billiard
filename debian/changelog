@@ -1,0 +1,57 @@
+billiard (3.3.0.15-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop exclude_funtests_package.patch, as it is no longer needed.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Tue, 11 Feb 2014 11:55:10 +0100
+
+billiard (3.3.0.13-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Bump Standards version to 3.9.5.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Sun, 15 Dec 2013 18:53:18 +0100
+
+billiard (2.7.3.34-2) unstable; urgency=low
+
+  * Don't use sphinxdoc addon when building binary-arch (Closes: #721779).
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Wed, 06 Nov 2013 11:11:02 +0200
+
+billiard (2.7.3.34-1) unstable; urgency=low
+
+  * New upstream release.
+  * Drop versioned Build-Depends on python-all as no prior versions are
+    available in Wheezy.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Tue, 15 Oct 2013 08:27:52 +0200
+
+billiard (2.7.3.32-2) unstable; urgency=low
+
+  * Move python-sphinx from Build-Depends-Indep to Build-Depends to fix
+    FTBFS if only arch independend parts are built (Closes: #721779).
+  * Drop libjs-jquery from Build-Depends-Indep as it is not required during
+    build.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Wed, 04 Sep 2013 11:53:15 +0200
+
+billiard (2.7.3.32-1) unstable; urgency=low
+
+  * New upstream release.
+  * Rename "BSD" to "BSD-3-clause" in d/copyright. Thanks to paultag.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Mon, 02 Sep 2013 20:03:14 +0200
+
+billiard (2.7.3.31-1) unstable; urgency=low
+
+  [ Michael Fladischer ]
+  * Initial release (Closes: #571656)
+
+  [ Thomas Bechtold ]
+  * Update package to version 2.7.3.31.
+  * Remove debian/pyversions.
+
+  [ Jakub Wilk ]
+  * Use canonical URIs for Vcs-* fields.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Fri, 16 Aug 2013 10:18:12 +0200

@@ -1,0 +1,38 @@
+Source: billiard
+Section: python
+Priority: optional
+Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+Uploaders: Michael Fladischer <FladischerMichael@fladi.at>,
+           Thomas Bechtold <thomasbechtold@jpberlin.de>
+Build-Depends: debhelper (>= 9),
+               python-all-dev,
+               python-mock,
+               python-nose,
+               python-setuptools,
+               python-sphinx (>= 1.0.7+dfsg-1~),
+               python-unittest2
+X-Python-Version: >= 2.4
+Standards-Version: 3.9.5
+Homepage: https://github.com/celery/billiard
+Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/billiard/trunk/
+Vcs-Browser: http://anonscm.debian.org/viewvc/python-modules/packages/billiard/trunk/
+
+Package: python-billiard
+Architecture: any
+Depends: ${misc:Depends}, ${python:Depends}, ${shlibs:Depends}
+Suggests: python-billiard-doc
+Description: Multiprocessing Pool Extensions for Python
+ This package contains extensions to the multiprocessing Pool.
+ It extends the multiprocessing.Pool with a billiard.pool.DynamicPool
+ that can grow in size.
+
+Package: python-billiard-doc
+Section: doc
+Architecture: all
+Depends: libjs-jquery, ${misc:Depends}, ${sphinxdoc:Depends}
+Description: Multiprocessing Pool Extensions for Python (Documentation)
+ This package contains extensions to the multiprocessing Pool.
+ It extends the multiprocessing.Pool with a billiard.pool.DynamicPool
+ that can grow in size.
+ .
+ This package contains the documentation.

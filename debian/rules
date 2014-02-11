@@ -1,0 +1,37 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ --with python2,sphinxdoc --buildsystem=python_distutils
+
+.PHONY: override_dh_auto_build
+override_dh_auto_build:
+	dh_auto_build
+	PYTHONPATH=. sphinx-build -b html -N Doc/ Doc/.build/html
+
+.PHONY: override_dh_installchangelogs
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGES.txt
+
+.PHONY: override_dh_compress
+override_dh_compress:
+	dh_compress -X.js -X.html -X.txt
+
+.PHONY: override_dh_clean
+override_dh_clean:
+	dh_clean
+	rm -rf Doc/.build
+
+.PHONY: override_dh_auto_test
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	set -e; \
+	for py in $(PYVERS); do \
+		$$py setup.py test ; \
+	done
+endif
+
+.PHONY: override_dh_sphinxdoc-arch
+override_dh_sphinxdoc-arch:

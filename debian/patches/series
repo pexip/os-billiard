@@ -1,0 +1,3 @@
+spelling.patch
+remove-nose-cover3.patch
+exclude_funtests_package.patch
