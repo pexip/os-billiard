@@ -1,3 +1,9 @@
+billiard (3.3.0.15-1pexip1) pexip; urgency=low
+
+  * Prepare Pexip packaging
+
+ -- John-Mark Bell <jmb@pexip.com>  Mon, 19 May 2014 11:49:24 +0000
+
 billiard (3.3.0.15-1) unstable; urgency=medium
 
   * New upstream release.

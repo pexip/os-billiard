@@ -1,8 +1,9 @@
 Source: billiard
 Section: python
 Priority: optional
-Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
-Uploaders: Michael Fladischer <FladischerMichael@fladi.at>,
+Maintainer: Pexip AS <packaging@pexip.com>
+XSBC-Pexip-Original-Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
+XSBC-Pexip-Original-Uploaders: Michael Fladischer <FladischerMichael@fladi.at>,
            Thomas Bechtold <thomasbechtold@jpberlin.de>
 Build-Depends: debhelper (>= 9),
                python-all-dev,
@@ -16,6 +17,7 @@ Standards-Version: 3.9.5
 Homepage: https://github.com/celery/billiard
 Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/billiard/trunk/
 Vcs-Browser: http://anonscm.debian.org/viewvc/python-modules/packages/billiard/trunk/
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ jessie
 
 Package: python-billiard
 Architecture: any
