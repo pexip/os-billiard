@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: billiard
-Version: 3.3.0.15
+Version: 3.3.0.17
 Summary: Python multiprocessing fork with improvements and bugfixes
 Home-page: http://github.com/celery/billiard
 Author: Ask Solem',
@@ -9,7 +9,7 @@ License: BSD
 Description: ========
         billiard
         ========
-        :version: 3.3.0.15
+        :version: 3.3.0.17
         
         About
         -----
@@ -49,6 +49,20 @@ Description: ========
         ===========
         Changes
         ===========
+        
+        3.3.0.17 - 2014-04-16
+        ---------------------
+        
+        - Fixes SemLock on Python 3.4 (Issue #107) when using
+          ``forking_enable(False)``.
+        
+        - Pool: Include more useful exitcode information when processes exit.
+        
+        3.3.0.16 - 2014-02-11
+        ---------------------
+        
+        - Previous release was missing the billiard.py3 package from MANIFEST
+          so the installation would not work on Python 3.
         
         3.3.0.15 - 2014-02-10
         ---------------------

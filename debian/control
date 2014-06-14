@@ -10,8 +10,14 @@ Build-Depends: debhelper (>= 9),
                python-nose,
                python-setuptools,
                python-sphinx (>= 1.0.7+dfsg-1~),
-               python-unittest2
+               python-unittest2,
+               python3-all-dev,
+               python3-mock,
+               python3-nose,
+               python3-setuptools,
+               python3-sphinx
 X-Python-Version: >= 2.4
+X-Python3-Version: >= 3.0
 Standards-Version: 3.9.5
 Homepage: https://github.com/celery/billiard
 Vcs-Svn: svn://anonscm.debian.org/python-modules/packages/billiard/trunk/
@@ -25,6 +31,17 @@ Description: Multiprocessing Pool Extensions for Python
  This package contains extensions to the multiprocessing Pool.
  It extends the multiprocessing.Pool with a billiard.pool.DynamicPool
  that can grow in size.
+
+Package: python3-billiard
+Architecture: any
+Depends: ${misc:Depends}, ${python3:Depends}, ${shlibs:Depends}
+Suggests: python-billiard-doc
+Description: Multiprocessing Pool Extensions for Python (Python3 version)
+ This package contains extensions to the multiprocessing Pool.
+ It extends the multiprocessing.Pool with a billiard.pool.DynamicPool
+ that can grow in size.
+ .
+ This package contains the Python 3 version of the library.
 
 Package: python-billiard-doc
 Section: doc

@@ -3,35 +3,59 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-%:
-	dh $@ --with python2,sphinxdoc --buildsystem=python_distutils
+PYVERS :=  $(shell pyversions -r)
+PY3VERS := $(shell py3versions -r)
 
-.PHONY: override_dh_auto_build
+%:
+	dh $@ --with python2,python3,sphinxdoc --buildsystem=python_distutils
+
 override_dh_auto_build:
-	dh_auto_build
+	set -e; \
+	for py in $(PYVERS) $(PY3VERS); do \
+		$$py -B setup.py build; \
+	done
 	PYTHONPATH=. sphinx-build -b html -N Doc/ Doc/.build/html
 
-.PHONY: override_dh_installchangelogs
+override_dh_auto_clean:
+	set -e; \
+	for py in $(PYVERS) $(PY3VERS); do \
+		$$py -B setup.py clean; \
+		rm -rf build; \
+	done
+	find -name __pycache__ | xargs rm -rf
+	find -name "*.pyc" -delete
+
+override_dh_auto_install:
+	set -e; \
+	for py in $(PYVERS); do \
+		$$py -B setup.py install --skip-build --root debian/python-billiard \
+		                      --install-layout deb; \
+	done
+	set -e; \
+	for py in $(PY3VERS); do \
+		$$py -B setup.py install --skip-build --root debian/python3-billiard \
+		                      --install-layout deb; \
+	done
+	rm debian/python*-billiard/usr/lib/python*/*-packages/billiard*.egg-info/SOURCES.txt
+
 override_dh_installchangelogs:
 	dh_installchangelogs CHANGES.txt
 
-.PHONY: override_dh_compress
 override_dh_compress:
 	dh_compress -X.js -X.html -X.txt
 
-.PHONY: override_dh_clean
 override_dh_clean:
 	dh_clean
 	rm -rf Doc/.build
 
-.PHONY: override_dh_auto_test
 override_dh_auto_test:
 ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	# Test setup fails for python3.4, will be reenabled once the
+	# testsuite works again
 	set -e; \
 	for py in $(PYVERS); do \
 		$$py setup.py test ; \
 	done
 endif
 
-.PHONY: override_dh_sphinxdoc-arch
 override_dh_sphinxdoc-arch:

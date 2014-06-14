@@ -1,3 +1,31 @@
+billiard (3.3.0.17-2) unstable; urgency=medium
+
+  * Add gnukfreebsd.patch to make setup.py recognize GNU/kFreeBSD as a
+    FreeBSD platform (Closes: #747441).
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Sat, 14 Jun 2014 20:41:08 +0200
+
+billiard (3.3.0.17-1) unstable; urgency=low
+
+  * New upstream release.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Wed, 23 Apr 2014 12:08:06 +0200
+
+billiard (3.3.0.16-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Enable tests during build (Closes: #735201).
+  * Enable Python3 support with python3-billiard.
+  * Extend remove-nose-cover3.patch to also remove nose-cover3 from funtests
+    package.
+  * Check PGP signature on upstream tarball:
+    + Add signature URL to debian/watch.
+    + Include upstream public PGP key 030A2708.
+    + Allow debian/upstream-signing-key.pgp to be included as a binary.
+  * Remove .PHONY declarations from debian/rules.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Wed, 09 Apr 2014 09:52:00 +0200
+
 billiard (3.3.0.15-1) unstable; urgency=medium
 
   * New upstream release.
