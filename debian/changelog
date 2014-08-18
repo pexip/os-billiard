@@ -1,3 +1,16 @@
+billiard (3.3.0.18-2) unstable; urgency=low
+
+  * Add patch to fix build on hurd-i386. Closes: #753836.
+
+ -- Brian May <bam@debian.org>  Mon, 18 Aug 2014 13:51:41 +1000
+
+billiard (3.3.0.18-1) unstable; urgency=low
+
+  * New upstream release.
+  * Remove gnukfreebsd.patch as it was included upstream.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Thu, 14 Aug 2014 15:06:09 +0200
+
 billiard (3.3.0.17-2) unstable; urgency=medium
 
   * Add gnukfreebsd.patch to make setup.py recognize GNU/kFreeBSD as a

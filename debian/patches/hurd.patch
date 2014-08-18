@@ -1,0 +1,18 @@
+Index: billiard/setup.py
+===================================================================
+--- billiard.orig/setup.py	2014-08-18 13:48:40.433307494 +1000
++++ billiard/setup.py	2014-08-18 13:49:33.768064437 +1000
+@@ -135,6 +135,13 @@
+         HAVE_FD_TRANSFER=1,
+     )
+     libraries = []
++elif sys.platform.startswith('gnu'):
++    macros = dict(                  # GNU/Hurd
++        HAVE_SEM_OPEN=0,            # Not implemented
++        HAVE_SEM_TIMEDWAIT=0,
++        HAVE_FD_TRANSFER=1,
++    )
++    libraries = []
+ else:                                   # Linux and other unices
+     macros = dict(
+         HAVE_SEM_OPEN=1,

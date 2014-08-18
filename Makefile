@@ -1,43 +1,38 @@
-PYTHON?=python2.5
-PYTHONPATH="Lib/"
-RUNPYTHON=PYTHONPATH=$(PYTHONPATH) $(PYTHON)
-BUILDER="html"
+PYTHON=python
 
-.PHONY=all inplace test clean realclean sdist examples doc
+flakecheck:
+	flake8 billiard
 
-all: inplace
+flakediag:
+	-$(MAKE) flakecheck
 
-inplace: clean
-	$(PYTHON) setup.py build_ext -i
+flakepluscheck:
+	flakeplus billiard --2.6
 
-test: inplace
-	$(RUNPYTHON) -tt -c "from multiprocessing.tests import main; main()"
+flakeplusdiag:
+	-$(MAKE) flakepluscheck
 
-clean:
-	find Lib/ \( -name '*.py[co]' -or -name '*.so' \) -exec rm {} \;
-	rm -rf build/sphinx
+flakes: flakediag flakeplusdiag
 
-realclean: clean
-	find . \( -name '*~' -or -name '*.bak' -or -name '*.tmp' \) -exec rm {} \;
-	rm -f MANIFEST
-	rm -rf multiprocessing.egg-info
-	rm -rf build/
-	rm -rf dist/
+test:
+	nosetests -xv billiard.tests
 
-sdist: realclean
-	$(PYTHON) setup.py sdist --format=gztar
-	$(PYTHON) setup.py sdist --format=zip
+cov:
+	nosetests -xv billiard.tests --with-coverage --cover-html --cover-branch
 
-examples: inplace
-	@echo -n "\n"
-	@for EXAMPLE in distributing newtype pool synchronize benchmarks workers; do \
-		echo "*** Running example mp_$${EXAMPLE}.py"; \
-		$(RUNPYTHON) Doc/includes/mp_$${EXAMPLE}.py || exit 1; \
-		echo -n "\n***********************\n\n"; \
-	done
+removepyc:
+	-find . -type f -a \( -name "*.pyc" -o -name "*$$py.class" \) | xargs rm
+	-find . -type d -name "__pycache__" | xargs rm -r
 
-doc:
-	mkdir -p Doc/static Doc/templates
-	$(PYTHON) setup.py build_sphinx --builder=$(BUILDER) \
-	    --source-dir=Doc/
+gitclean:
+	git clean -xdn
 
+gitcleanforce:
+	git clean -xdf
+
+bump_version:
+	$(PYTHON) extra/release/bump_version.py billiard/__init__.py
+
+distcheck: flakecheck test gitclean
+
+dist: readme docsclean gitcleanforce removepyc
