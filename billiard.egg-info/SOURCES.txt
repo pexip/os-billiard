@@ -54,6 +54,9 @@ billiard/dummy/connection.py
 billiard/py2/__init__.py
 billiard/py2/connection.py
 billiard/py2/reduction.py
+billiard/py3/__init__.py
+billiard/py3/connection.py
+billiard/py3/reduction.py
 billiard/tests/__init__.py
 billiard/tests/compat.py
 billiard/tests/test_common.py
