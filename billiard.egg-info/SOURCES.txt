@@ -4,7 +4,6 @@ LICENSE.txt
 MANIFEST.in
 Makefile
 README.rst
-pavement.py
 setup.cfg
 setup.py
 Doc/conf.py

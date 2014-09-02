@@ -31,6 +31,7 @@ from . import util
 from .common import pickle_loads, reset_signals, restart_state
 from .compat import get_errno, send_offset
 from .einfo import ExceptionInfo
+from .dummy import DummyProcess
 from .exceptions import (
     CoroStop,
     RestartFreqExceeded,
@@ -122,7 +123,7 @@ def _get_send_offset(connection):
 
 
 def human_status(status):
-    if status < 0:
+    if status or 0 < 0:
         try:
             return 'signal {0} ({1})'.format(-status, SIGMAP[-status])
         except KeyError:
@@ -458,10 +459,10 @@ class Worker(Process):
 #
 
 
-class PoolThread(threading.Thread):
+class PoolThread(DummyProcess):
 
     def __init__(self, *args, **kwargs):
-        threading.Thread.__init__(self)
+        DummyProcess.__init__(self)
         self._state = RUN
         self._was_started = False
         self.daemon = True
@@ -1192,8 +1193,9 @@ class Pool(object):
                 self._putlock.shrink()
             worker.terminate_controlled()
             self.on_shrink(1)
-            if i == n - 1:
-                return
+            if i >= n - 1:
+                break
+        else:
             raise ValueError("Can't shrink pool. All processes busy!")
 
     def grow(self, n=1):

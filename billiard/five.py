@@ -10,7 +10,7 @@
 """
 from __future__ import absolute_import
 
-############## py3k #########################################################
+# ############# py3k #########################################################
 import sys
 PY3 = sys.version_info[0] == 3
 
@@ -29,7 +29,7 @@ try:
 except ImportError:                         # pragma: no cover
     from collections import UserDict        # noqa
 
-############## time.monotonic ################################################
+# ############# time.monotonic ###############################################
 
 if sys.version_info < (3, 3):
 
@@ -174,7 +174,7 @@ else:
 def with_metaclass(Type, skip_attrs=set(['__dict__', '__weakref__'])):
     """Class decorator to set metaclass.
 
-    Works with both Python 3 and Python 3 and it does not add
+    Works with both Python 2 and Python 3 and it does not add
     an extra class in the lookup order like ``six.with_metaclass`` does
     (that is -- it copies the original class instead of using inheritance).
 
