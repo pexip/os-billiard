@@ -1,3 +1,22 @@
+billiard (3.3.0.18-2pexip1) pexip; urgency=low
+
+  * New upstream release
+
+ -- John-Mark Bell <jmb@pexip.com>  Tue, 02 Sep 2014 21:14:25 +0100
+
+billiard (3.3.0.18-2) unstable; urgency=low
+
+  * Add patch to fix build on hurd-i386. Closes: #753836.
+
+ -- Brian May <bam@debian.org>  Mon, 18 Aug 2014 13:51:41 +1000
+
+billiard (3.3.0.18-1) unstable; urgency=low
+
+  * New upstream release.
+  * Remove gnukfreebsd.patch as it was included upstream.
+
+ -- Michael Fladischer <FladischerMichael@fladi.at>  Thu, 14 Aug 2014 15:06:09 +0200
+
 billiard (3.3.0.17-2pexip1) pexip; urgency=low
 
   * New upstream release

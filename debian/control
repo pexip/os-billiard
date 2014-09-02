@@ -4,7 +4,8 @@ Priority: optional
 Maintainer: Pexip AS <packaging@pexip.com>
 XSBC-Pexip-Original-Maintainer: Debian Python Modules Team <python-modules-team@lists.alioth.debian.org>
 XSBC-Pexip-Original-Uploaders: Michael Fladischer <FladischerMichael@fladi.at>,
-           Thomas Bechtold <thomasbechtold@jpberlin.de>
+           Thomas Bechtold <thomasbechtold@jpberlin.de>,
+           Brian May <bam@debian.org>,
 Build-Depends: debhelper (>= 9),
                python-all-dev,
                python-mock,

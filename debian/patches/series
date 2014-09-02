@@ -1,4 +1,4 @@
 spelling.patch
 remove-nose-cover3.patch
-gnukfreebsd.patch
 exclude_funtests_package.patch
+hurd.patch
