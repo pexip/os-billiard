@@ -1,11 +1,21 @@
-Description: Do not install install funtests package
-Author: Michael Fladischer <FladischerMichael@fladi.at>
+From 0c4a9488de28e4bee8692f18d6f61ea22a05dcbb Mon Sep 17 00:00:00 2001
+From: Michael Fladischer <fladi@debian.org>
+Date: Thu, 8 Oct 2015 08:33:14 -0700
+Subject: Do not install install funtests package
+
 Last-Update: 2013-07-01
 Forwarded: no
 
+Patch-Name: exclude_funtests_package.patch
+---
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 138975e..710fdcb 100644
 --- a/setup.py
 +++ b/setup.py
-@@ -214,7 +214,7 @@
+@@ -217,7 +217,7 @@ def run_setup(with_extensions=True):
          ]
      exclude = 'billiard.py2' if is_py3k else 'billiard.py3'
      packages = find_packages(exclude=[

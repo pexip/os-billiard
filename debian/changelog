@@ -1,3 +1,53 @@
+billiard (3.3.0.21-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Brian May <bam@debian.org>  Thu, 19 Nov 2015 08:30:26 +1100
+
+billiard (3.3.0.20-3) unstable; urgency=medium
+
+  * Clean up debian/rules.
+  * Ensure Python3 tests run.
+  * Fix FTBFS error. Closes: #804137.
+
+ -- Brian May <bam@debian.org>  Fri, 06 Nov 2015 09:09:53 +1100
+
+billiard (3.3.0.20-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ SVN-Git Migration ]
+  * Added git-dpm
+  * Update Vcs fields for git migration
+
+  [ Scott Kitterman ]
+  * Convert python3-billiard from arch any to arch all since binary extension
+    builds are disabled for python3 and adjust build-depends accordingly
+    (Closes: #799182)
+  * Add dh-python to build-depends to ensure the most recent version is used
+
+ -- Scott Kitterman <scott@kitterman.com>  Wed, 14 Oct 2015 08:49:37 -0400
+
+billiard (3.3.0.20-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop remove-nose-cover3.patch as it was included upstream.
+
+ -- Michael Fladischer <fladi@debian.org>  Tue, 19 May 2015 14:31:52 +0200
+
+billiard (3.3.0.19-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Drop billiard/_connection.py from Files section as it is no longer
+    part of the upstream source.
+  * Use pypi.debian.net service for uscan.
+  * Bump Standards-Version to 3.9.6.
+  * Refresh patches.
+  * Add DEP-3 header to hurd.patch.
+  * Change my email address to fladi@debian.org.
+
+ -- Michael Fladischer <fladi@debian.org>  Tue, 19 May 2015 07:45:38 +0200
+
 billiard (3.3.0.18-2) unstable; urgency=low
 
   * Add patch to fix build on hurd-i386. Closes: #753836.

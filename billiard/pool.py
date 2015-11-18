@@ -51,8 +51,10 @@ if platform.system() == 'Windows':  # pragma: no cover
     # handled by # any process, so this is needed to terminate the task
     # *and its children* (if any).
     from ._win import kill_processtree as _kill  # noqa
+    SIGKILL = signal.SIGTERM
 else:
     from os import kill as _kill                 # noqa
+    SIGKILL = signal.SIGKILL
 
 
 try:
@@ -123,7 +125,7 @@ def _get_send_offset(connection):
 
 
 def human_status(status):
-    if status or 0 < 0:
+    if (status or 0) < 0:
         try:
             return 'signal {0} ({1})'.format(-status, SIGMAP[-status])
         except KeyError:
@@ -160,16 +162,6 @@ class LaxBoundedSemaphore(_Semaphore):
             _Semaphore.__init__(self, value, verbose)
         self._initial_value = value
 
-    def grow(self):
-        if PY3:
-            cond = self._cond
-        else:
-            cond = self._Semaphore__cond
-        with cond:
-            self._initial_value += 1
-            self._Semaphore__value += 1
-            cond.notify()
-
     def shrink(self):
         self._initial_value -= 1
         self.acquire()
@@ -186,7 +178,21 @@ class LaxBoundedSemaphore(_Semaphore):
         def clear(self):
             while self._value < self._initial_value:
                 _Semaphore.release(self)
+
+        def grow(self):
+            with self._cond:
+                self._initial_value += 1
+                self._value += 1
+                self._cond.notify()
+
     else:
+
+        def grow(self):
+            cond = self._Semaphore__cond
+            with cond:
+                self._initial_value += 1
+                self._Semaphore__value += 1
+                cond.notify()
 
         def release(self):  # noqa
             cond = self._Semaphore__cond
@@ -622,8 +628,7 @@ class TimeoutHandler(PoolThread):
             return
 
         # Run timeout callback
-        if job._timeout_callback is not None:
-            job._timeout_callback(soft=True, timeout=job._soft_timeout)
+        job.handle_timeout(soft=True)
 
         try:
             _kill(job._worker_pid, SIG_SOFT_TIMEOUT)
@@ -647,8 +652,8 @@ class TimeoutHandler(PoolThread):
         process, _index = self._process_by_pid(job._worker_pid)
 
         # Run timeout callback
-        if job._timeout_callback is not None:
-            job._timeout_callback(soft=False, timeout=job._timeout)
+        job.handle_timeout(soft=False)
+
         if process:
             self._trywaitkill(process)
 
@@ -663,7 +668,7 @@ class TimeoutHandler(PoolThread):
                 return
         debug('timeout: TERM timed-out, now sending KILL to %s', worker._name)
         try:
-            _kill(worker.pid, signal.SIGKILL)
+            _kill(worker.pid, SIGKILL)
         except OSError:
             pass
 
@@ -1629,7 +1634,6 @@ class ApplyResult(object):
         self._error_callback = error_callback
         self._timeout_callback = timeout_callback
         self._timeout = timeout
-        self._terminated = None
         self._soft_timeout = soft_timeout
         self._lost_worker_timeout = lost_worker_timeout
         self._on_timeout_set = on_timeout_set
@@ -1641,6 +1645,7 @@ class ApplyResult(object):
         self._cancelled = False
         self._worker_pid = None
         self._time_accepted = None
+        self._terminated = None
         cache[self._job] = self
 
     def __repr__(self):
@@ -1689,15 +1694,22 @@ class ApplyResult(object):
         else:
             raise self._value.exception
 
-    def safe_apply_callback(self, fun, *args):
+    def safe_apply_callback(self, fun, *args, **kwargs):
         if fun:
             try:
-                fun(*args)
+                fun(*args, **kwargs)
             except self._callbacks_propagate:
                 raise
             except Exception as exc:
                 error('Pool callback raised exception: %r', exc,
                       exc_info=1)
+
+    def handle_timeout(self, soft=False):
+        if self._timeout_callback is not None:
+            self.safe_apply_callback(
+                self._timeout_callback, soft=soft,
+                timeout=self._soft_timeout if soft else self._timeout,
+            )
 
     def _set(self, i, obj):
         with self._mutex:
@@ -1798,9 +1810,9 @@ class MapResult(ApplyResult):
                 self._cache.pop(self._job, None)
             self._event.set()
 
-    def _ack(self, i, time_accepted, pid):
+    def _ack(self, i, time_accepted, pid, *args):
         start = i * self._chunksize
-        stop = (i + 1) * self._chunksize
+        stop = min((i + 1) * self._chunksize, self._length)
         for j in range(start, stop):
             self._accepted[j] = True
             self._worker_pid[j] = pid
@@ -1887,7 +1899,7 @@ class IMapIterator(object):
                 self._cond.notify()
                 del self._cache[self._job]
 
-    def _ack(self, i, time_accepted, pid):
+    def _ack(self, i, time_accepted, pid, *args):
         self._worker_pids.append(pid)
 
     def ready(self):

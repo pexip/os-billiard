@@ -1,11 +1,21 @@
-Description: Fix spelling error in upstream
-Author: Michael Fladischer <FladischerMichael@fladi.at>
+From 5723b8528e2cac4a50bee6f3f4e2bbbf62c16689 Mon Sep 17 00:00:00 2001
+From: Michael Fladischer <fladi@debian.org>
+Date: Thu, 8 Oct 2015 08:33:13 -0700
+Subject: Fix spelling error in upstream
+
 Last-Update: 2013-07-01
 Forwarded: no
 
+Patch-Name: spelling.patch
+---
+ Modules/_billiard/multiprocessing.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Modules/_billiard/multiprocessing.c b/Modules/_billiard/multiprocessing.c
+index 93e88a5..5eb5ad2 100644
 --- a/Modules/_billiard/multiprocessing.c
 +++ b/Modules/_billiard/multiprocessing.c
-@@ -68,7 +68,7 @@
+@@ -68,7 +68,7 @@ Billiard_SetError(PyObject *Type, int num)
          break;
      default:
          PyErr_Format(PyExc_RuntimeError,
