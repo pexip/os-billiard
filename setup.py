@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import os
+import re
 import sys
 import glob
 
@@ -49,11 +50,13 @@ extras = {}
 
 # -*- Distribution Meta -*-
 
-import re
 re_meta = re.compile(r'__(\w+?)__\s*=\s*(.*)')
 re_vers = re.compile(r'VERSION\s*=\s*\((.*?)\)')
 re_doc = re.compile(r'^"""(.+?)"""')
-rq = lambda s: s.strip("\"'")
+
+
+def rq(s):
+    return s.strip("\"'")
 
 
 def add_default(m):
@@ -118,7 +121,7 @@ elif sys.platform in ('freebsd4', 'freebsd5', 'freebsd6'):
         HAVE_FD_TRANSFER=1,
         )
     libraries = []
-elif re.match('^(gnukfreebsd(8|9|10|11)|freebsd(7|8|9|0))', sys.platform):
+elif re.match('^(gnukfreebsd(8|9|10|11)|freebsd(7|8|9|10))', sys.platform):
     macros = dict(                  # FreeBSD 7+ and GNU/kFreeBSD 8+
         HAVE_SEM_OPEN=bool(
             sysconfig.get_config_var('HAVE_SEM_OPEN') and not
