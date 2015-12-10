@@ -1,8 +1,21 @@
-Index: billiard/setup.py
-===================================================================
---- billiard.orig/setup.py	2014-08-18 13:48:40.433307494 +1000
-+++ billiard/setup.py	2014-08-18 13:49:33.768064437 +1000
-@@ -135,6 +135,13 @@
+From db1805a13b2e47657f2b1a8ec5c30992189082a2 Mon Sep 17 00:00:00 2001
+From: Michael Fladischer <fladi@debian.org>
+Date: Thu, 8 Oct 2015 08:33:15 -0700
+Subject: Add configuration for GNU/Hurd when building.
+
+Last-Update: 2015-05-19
+Forwarded: no
+
+Patch-Name: hurd.patch
+---
+ setup.py | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/setup.py b/setup.py
+index 710fdcb..1ff65c9 100644
+--- a/setup.py
++++ b/setup.py
+@@ -138,6 +138,13 @@ elif sys.platform.startswith('openbsd'):
          HAVE_FD_TRANSFER=1,
      )
      libraries = []

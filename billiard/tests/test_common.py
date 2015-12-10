@@ -4,7 +4,6 @@ import os
 import signal
 
 from contextlib import contextmanager
-from mock import call, patch, Mock
 from time import time
 
 from billiard.common import (
@@ -14,6 +13,11 @@ from billiard.common import (
 )
 
 from .utils import Case
+
+try:
+    from unittest.mock import Mock, call, patch
+except ImportError:
+    from mock import Mock, call, patch  # noqa
 
 
 def signo(name):

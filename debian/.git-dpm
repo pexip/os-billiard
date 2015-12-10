@@ -1,0 +1,11 @@
+# see git-dpm(1) from git-dpm package
+db1805a13b2e47657f2b1a8ec5c30992189082a2
+db1805a13b2e47657f2b1a8ec5c30992189082a2
+04f4cd56873c7d80995137920fb03b5a9f28d966
+04f4cd56873c7d80995137920fb03b5a9f28d966
+billiard_3.3.0.21.orig.tar.gz
+13355cf50b21decc6a06dda19a2bc54d377c37b2
+151141
+debianTag="debian/%e%v"
+patchedTag="patched/%e%v"
+upstreamTag="upstream/%e%u"
