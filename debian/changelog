@@ -1,3 +1,26 @@
+billiard (3.3.0.23-2) unstable; urgency=medium
+
+  * Fix up git repository so that Debian release is in the Master branch.
+  * Fix Git-Vcs header.
+
+ -- Brian May <bam@debian.org>  Sun, 17 Apr 2016 18:37:53 +1000
+
+billiard (3.3.0.23-1) unstable; urgency=low
+
+  * New upstream release.
+  * Bump Standards-Version to 3.9.7.
+  * Use https in Vcs-Git field.
+  * Use python3-sphinx to build documentation.
+
+ -- Michael Fladischer <fladi@debian.org>  Thu, 31 Mar 2016 11:21:37 +0200
+
+billiard (3.3.0.22-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add a patch to fix a typo in multiprocessing.c.
+
+ -- Michael Fladischer <fladi@debian.org>  Sun, 20 Dec 2015 09:14:15 +0100
+
 billiard (3.3.0.21-1) unstable; urgency=medium
 
   * New upstream version.

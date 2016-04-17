@@ -1,4 +1,4 @@
-From db1805a13b2e47657f2b1a8ec5c30992189082a2 Mon Sep 17 00:00:00 2001
+From b8e18b2375c08eb88a1a2b4c295d064dc8ffaab1 Mon Sep 17 00:00:00 2001
 From: Michael Fladischer <fladi@debian.org>
 Date: Thu, 8 Oct 2015 08:33:15 -0700
 Subject: Add configuration for GNU/Hurd when building.
