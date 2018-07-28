@@ -1,4 +1,4 @@
-From 0c4a9488de28e4bee8692f18d6f61ea22a05dcbb Mon Sep 17 00:00:00 2001
+From aeb20321a68a0b1291419babae2a747c0928239b Mon Sep 17 00:00:00 2001
 From: Michael Fladischer <fladi@debian.org>
 Date: Thu, 8 Oct 2015 08:33:14 -0700
 Subject: Do not install install funtests package
