@@ -1,3 +1,73 @@
+billiard (3.6.0.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Refresh patches.
+  * Add python(3)-psutil to Build-Depends as it is used in tests.
+  * Bump Standards-Version to 4.3.0.
+  * Bump debhelper compatibility and version to 12.
+  * Add hardening maintainer flags to debian/rules.
+
+ -- Michael Fladischer <fladi@debian.org>  Sun, 10 Feb 2019 16:10:28 +0100
+
+billiard (3.5.0.5-1) unstable; urgency=low
+
+  [ Ondřej Nový ]
+  * Use 'python3 -m sphinx' instead of sphinx-build for building docs
+
+  [ Michael Fladischer ]
+  * New upstream release.
+  * Disable PGP signature check in uscan as upstream is not providing a
+    signature for current releases.
+  * Clean up files in .pytest_cache/ to allow two builds in a row.
+  * Bump Standards-Version to 4.2.1.
+
+ -- Michael Fladischer <fladi@debian.org>  Mon, 17 Dec 2018 14:46:30 +0100
+
+billiard (3.5.0.4-1) unstable; urgency=low
+
+  [ Thomas Bechtold ]
+  * Remove myself from Uploaders
+
+  [ Ondřej Nový ]
+  * d/control: Set Vcs-* to salsa.debian.org
+  * d/watch: Use https protocol
+  * d/control: Remove ancient X-Python-Version field
+  * d/control: Remove ancient X-Python3-Version field
+
+  [ Michael Fladischer ]
+  * New upstream release.
+  * Replace debian/upstream-signing-key.pgp with debian/upstream/signing-
+    key.asc.
+  * Bump debhelper compatibility and version to 11.
+  * Bump Standards-Version to 4.1.5.
+  * Install README.rst for python3-billiard package.
+  * Replace python(3)-nose with python(3)-pytest for tests during
+    package build.
+  * Add python(3)-case to Build-Depends to satisfy test requirements.
+  * Clean up .pytest_cache/v/cache/nodeids during builds.
+  * Build documentation in override_dh_sphinxdoc.
+  * Enable autopkgtest-pkg-python testsuite.
+  * Run wrap-and-sort -bast to reduce diff size of future changes.
+
+ -- Michael Fladischer <fladi@debian.org>  Tue, 07 Aug 2018 10:59:31 +0200
+
+billiard (3.5.0.3-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add new upstream signing key.
+  * Refresh patches for 3.5.0.3.
+  * Use https:// for copyright-format 1.0 URL.
+  * Update d/copyright.
+
+ -- Michael Fladischer <fladi@debian.org>  Sun, 30 Jul 2017 20:54:52 +0200
+
+billiard (3.5.0.2-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Update standards version to 4.0.0.
+
+ -- Brian May <bam@debian.org>  Thu, 13 Jul 2017 08:13:15 +1000
+
 billiard (3.3.0.23-2) unstable; urgency=medium
 
   * Fix up git repository so that Debian release is in the Master branch.

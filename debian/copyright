@@ -1,4 +1,4 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: billiard
 Upstream-Contact: Ask Solem <ask@celeryproject.org>
 Source: http://pypi.python.org/pypi/billiard/
@@ -11,7 +11,6 @@ Files: billiard/connection.py
        billiard/__init__.py
        billiard/dummy/__init__.py
        billiard/dummy/connection.py
-       billiard/forking.py
        billiard/heap.py
        billiard/managers.py
        billiard/pool.py
@@ -27,11 +26,8 @@ Files: billiard/connection.py
        Doc/includes/mp_synchronize.py
        Doc/includes/mp_webserver.py
        Doc/includes/mp_workers.py
-       Modules/_billiard/connection.h
        Modules/_billiard/multiprocessing.c
-       Modules/_billiard/pipe_connection.c
        Modules/_billiard/semaphore.c
-       Modules/_billiard/socket_connection.c
        Modules/_billiard/win32_functions.c
 License: PSF-2
 Copyright: 2006-2008, R Oudkerk

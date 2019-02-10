@@ -35,7 +35,7 @@ setup(
     description='Functional test suite for billiard',
     author='Ask Solem',
     author_email='ask@celeryproject.org',
-    url='http://github.com/celery/billiard',
+    url='https://github.com/celery/billiard',
     platforms=['any'],
     packages=[],
     data_files=[],
@@ -44,7 +44,6 @@ setup(
     test_suite='nose.collector',
     build_requires=[
         'nose',
-        'unittest2',
         'coverage>=3.0',
     ],
     classifiers=[

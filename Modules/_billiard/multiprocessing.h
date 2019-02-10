@@ -130,13 +130,9 @@ PyObject *Billiard_SetError(PyObject *Type, int num);
  * Externs - not all will really exist on all platforms
  */
 
-extern PyObject *Billiard_pickle_dumps;
-extern PyObject *Billiard_pickle_loads;
-extern PyObject *Billiard_pickle_protocol;
 extern PyObject *Billiard_BufferTooShort;
 extern PyTypeObject BilliardSemLockType;
-extern PyTypeObject BilliardConnectionType;
-extern PyTypeObject BilliardPipeConnectionType;
+extern PyObject *Billiard_semlock_unlink(PyObject *ignore, PyObject *args);
 extern HANDLE sigint_event;
 
 /*
@@ -181,9 +177,8 @@ typedef struct {
 
 #define MAX_MESSAGE_LENGTH 0x7fffffff
 
-#ifndef MIN
-#  define MIN(x, y) ((x) < (y) ? x : y)
-#  define MAX(x, y) ((x) > (y) ? x : y)
+#ifndef Py_MIN
+#  define Py_MIN(x, y) (((x) > (y)) ? (y) : (x))
 #endif
 
 #endif /* MULTIPROCESSING_H */

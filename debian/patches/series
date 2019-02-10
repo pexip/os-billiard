@@ -1,4 +1,2 @@
-spelling.patch
-exclude_funtests_package.patch
 hurd.patch
 0004-Fix-spelling-error-in-multiprocessing.c.patch

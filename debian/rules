@@ -1,13 +1,10 @@
 #!/usr/bin/make -f
 
 export PYBUILD_NAME=billiard
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
 	dh $@ --with python2,python3,sphinxdoc --buildsystem=pybuild
-
-override_dh_auto_build:
-	dh_auto_build
-	PYTHONPATH=. sphinx-build -b html -N Doc/ Doc/.build/html
 
 override_dh_installchangelogs:
 	dh_installchangelogs CHANGES.txt
@@ -15,6 +12,14 @@ override_dh_installchangelogs:
 override_dh_compress:
 	dh_compress -X.js -X.html -X.txt
 
+override_dh_sphinxdoc:
+ifeq (,$(findstring nodoc, $(DEB_BUILD_OPTIONS)))
+	PYTHONPATH=. python3 -m sphinx -b html -N Doc $(CURDIR)/debian/python-billiard-doc/usr/share/doc/python-billiard-doc/html
+	dh_sphinxdoc
+endif
+
+override_dh_auto_test:
+	dh_auto_test -- --system=custom --test-args="{interpreter} setup.py test"
+
 override_dh_clean:
 	dh_clean
-	rm -rf Doc/.build
