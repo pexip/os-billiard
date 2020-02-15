@@ -24,7 +24,7 @@ Standards-Version: 3.9.7
 Homepage: https://github.com/celery/billiard
 Vcs-Git: https://anonscm.debian.org/git/python-modules/packages/billiard.git
 Vcs-Browser: https://anonscm.debian.org/cgit/python-modules/packages/billiard.git
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ stretch
+XS-Pexip-Upstream: http://ftp.debian.org/debian/ buster
 
 Package: python-billiard
 Architecture: any
