@@ -1,24 +1,71 @@
-3.3.0.23 - 2016-03-03
----------------------
+3.6.0.0 - 2018-02-04
+--------------------
 
-- ExceptionInfo: Adds tb_lasti and other missing traceback fields
-  (Issue #180).
+- Add support of sending parent process death signal.
 
-- monotonic: Now makes sure ctypes is available.
+- Previous fix for handling timeouts caused a problem in warm shutdowns due
+  to use of deepcopy.
 
-- PipeConnection: Make sure the pipe is not closed multiple times.
+  We now use a shallow copy of the cache and do so only when it is needed.
 
-3.3.0.22 - 2015-12-08
----------------------
+- Cleanup old checks and workarounds for Python versions we no longer support.
 
-- Wheel packages for Windows now available.
+3.5.0.5 - 2018-12-03
+--------------------
 
-3.3.0.21 - 2015-10-26
----------------------
+- Fix a crash when handling a timeout.
+- Improve billiard.einfo.Frame compatibility with Python to avoid crashes when using Django.
+- Cleanups.
 
-- Pool: Fixed semaphore error on Python3.
+3.5.0.4 - 2018-07-07
+--------------------
 
-- Fixed libSystem error on OS X El Capitan.
+- Fix rebuild_ctype losing BufferedWrapper reference on Python 3.
+- Deprecation warning with python 3.6 fixed.
+- Correct spawn start method.
+
+3.5.0.3 - 2017-07-16
+--------------------
+
+- Adds Process._authkey alias to .authkey for 2.7 compat.
+- Remove superfluous else clause from max_memory_per_child_check.
+- Document and test all supported Python versions.
+- Extend 'Process' to be compatible with < Py3.5.
+- Use a properly initialized logger in pool.py error logging.
+- _trywaitkill can now kill a whole process group if the worker process declares itself as a group leader.
+- Fix cpython issue 14881 (See https://bugs.python.org/issue14881).
+- Fix for a crash on windows.
+- Fix messaging in case of worker exceeds max memory.
+
+3.5.0.2 - 2016-10-03
+--------------------
+
+- max_memory_per_child was measured in kilobytes on Linux, but bytes on
+  *BSD/MacOS, it's now always kilobytes.
+
+- Windows: Adds support for max_memory_per_child, but requires the
+  ``psutil`` package to be installed.
+
+- Fixed bug in ForkingPickler.loadbuf, where it tried to pass
+  a BytesIO instance directly to ``pickle.loads`` on Python 2.7.
+
+3.5.0.1 - 2016-09-07
+--------------------
+
+- Connection: Properly handle EINTR (Issue #191).
+
+- Fixed bug with missing CreateProcess for Windows on Python 2.7.
+
+- Adds Process._counter for compatibility with Python <3.5.
+
+3.5.0.0 - 2016-07-28
+--------------------
+
+- No longer supports Python 2.6
+
+    You need Python 2.7 or later to use this version of billiard.
+
+- Merged changes from CPython 3.5
 
 3.3.0.20 - 2015-04-17
 ---------------------
@@ -177,7 +224,7 @@
     Fix contributed by Tin Tvrtkovic.
 
 - Now uses ``ctypes.find_library`` instead of hardcoded path to find
-  the OS X CoreServices framework.
+  the macOS CoreServices framework.
 
     Fix contributed by Moritz Kassner.
 
@@ -250,7 +297,7 @@
 - Includes many changes from multiprocessing in 3.4.
 
 - Now uses ``time.monotonic`` when available, also including
-  fallback implementations for Linux and OS X.
+  fallback implementations for Linux and macOS.
 
 - No longer cleans up after receiving SIGILL, SIGSEGV or SIGFPE
 
@@ -714,4 +761,4 @@
 
 - Pool improvements from Celery.
 
-- no-execv patch added (http://bugs.python.org/issue8713)
+- no-execv patch added (https://bugs.python.org/issue8713)

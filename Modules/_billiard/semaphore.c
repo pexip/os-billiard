@@ -44,7 +44,7 @@ _Billiard_GetSemaphoreValue(HANDLE handle, long *value)
 {
     long previous;
 
-    switch (WaitForSingleObject(handle, 0)) {
+    switch (WaitForSingleObjectEx(handle, 0, FALSE)) {
     case WAIT_OBJECT_0:
         if (!ReleaseSemaphore(handle, 1, &previous))
             return MP_STANDARD_ERROR;
@@ -99,7 +99,7 @@ Billiard_semlock_acquire(BilliardSemLockObject *self, PyObject *args, PyObject *
     }
 
     /* check whether we can acquire without blocking */
-    if (WaitForSingleObject(self->handle, 0) == WAIT_OBJECT_0) {
+    if (WaitForSingleObjectEx(self->handle, 0, FALSE) == WAIT_OBJECT_0) {
         self->last_tid = GetCurrentThreadId();
         ++self->count;
         Py_RETURN_TRUE;
@@ -114,7 +114,7 @@ Billiard_semlock_acquire(BilliardSemLockObject *self, PyObject *args, PyObject *
         /* do the wait */
         Py_BEGIN_ALLOW_THREADS
         ResetEvent(sigint_event);
-        res = WaitForMultipleObjects(2, handles, FALSE, msecs);
+        res = WaitForMultipleObjectsEx(2, handles, FALSE, msecs, FALSE);
         Py_END_ALLOW_THREADS
 
         /* handle result */
@@ -148,7 +148,7 @@ Billiard_semlock_acquire(BilliardSemLockObject *self, PyObject *args, PyObject *
     case WAIT_FAILED:
         return PyErr_SetFromWindowsErr(0);
     default:
-        PyErr_Format(PyExc_RuntimeError, "WaitForSingleObject() or "
+        PyErr_Format(PyExc_RuntimeError, "WaitForSingleObjectEx() or "
                      "WaitForMultipleObjects() gave unrecognized "
                      "value %d", res);
         return NULL;
@@ -198,6 +198,13 @@ Billiard_semlock_release(BilliardSemLockObject *self, PyObject *args)
 #define SEM_CLOSE(sem) sem_close(sem)
 #define SEM_GETVALUE(sem, pval) sem_getvalue(sem, pval)
 #define SEM_UNLINK(name) sem_unlink(name)
+
+/* macOS 10.4 defines SEM_FAILED as -1 instead (sem_t *)-1; this gives
+    compiler warnings, and (potentially) undefined behavior. */
+#ifdef __APPLE__
+#   undef SEM_FAILED
+#   define SEM_FAILED ((sem_t *)-1)
+#endif
 
 #ifndef HAVE_SEM_UNLINK
 #  define sem_unlink(name) 0
@@ -472,21 +479,30 @@ Billiard_semlock_rebuild(PyTypeObject *type, PyObject *args)
 {
     SEM_HANDLE handle;
     int kind, maxvalue;
-    char *name;
+    char *name, *name_copy = NULL;
 
     if (!PyArg_ParseTuple(args, F_SEM_HANDLE "iiz",
                           &handle, &kind, &maxvalue, &name))
         return NULL;
 
+    if (name != NULL) {
+        name_copy = PyMem_Malloc(strlen(name) + 1);
+        if (name_copy == NULL)
+            return PyErr_NoMemory();
+        strcpy(name_copy, name);
+    }
+
 #ifndef MS_WINDOWS
     if (name != NULL) {
         handle = sem_open(name, 0);
-        if (handle == SEM_FAILED)
-            return NULL;
+        if (handle == SEM_FAILED) {
+            PyMem_Free(name_copy);
+            return PyErr_SetFromErrno(PyExc_OSError);
+        }
     }
 #endif
 
-    return Billiard_newsemlockobject(type, handle, kind, maxvalue, name);
+    return Billiard_newsemlockobject(type, handle, kind, maxvalue, name_copy);
 }
 
 static void
@@ -557,7 +573,7 @@ Billiard_semlock_afterfork(BilliardSemLockObject *self)
     Py_RETURN_NONE;
 }
 
-static PyObject *
+PyObject *
 Billiard_semlock_unlink(PyObject *ignore, PyObject *args)
 {
     char *name;

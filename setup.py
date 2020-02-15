@@ -1,14 +1,12 @@
 from __future__ import print_function
 
 import os
-import re
 import sys
 import glob
 
-try:
-    from setuptools import setup, Extension, find_packages
-except ImportError:
-    from distutils.core import setup, Extension, find_packages  # noqa
+import setuptools
+import setuptools.command.test
+
 from distutils import sysconfig
 from distutils.errors import (
     CCompilerError,
@@ -18,7 +16,7 @@ from distutils.errors import (
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 ext_errors = (CCompilerError, DistutilsExecError, DistutilsPlatformError)
-if sys.platform == 'win32' and sys.version_info >= (2, 6):
+if sys.platform == 'win32':
     # distutils.msvc9compiler can raise IOError if the compiler is missing
     ext_errors += (IOError, )
 
@@ -50,13 +48,11 @@ extras = {}
 
 # -*- Distribution Meta -*-
 
+import re
 re_meta = re.compile(r'__(\w+?)__\s*=\s*(.*)')
 re_vers = re.compile(r'VERSION\s*=\s*\((.*?)\)')
 re_doc = re.compile(r'^"""(.+?)"""')
-
-
-def rq(s):
-    return s.strip("\"'")
+rq = lambda s: s.strip("\"'")
 
 
 def add_default(m):
@@ -90,19 +86,19 @@ finally:
     meta_fh.close()
 
 
-if sys.version_info < (2, 5):
-    raise ValueError('Versions of Python before 2.5 are not supported')
+if sys.version_info < (2, 7):
+    raise ValueError('Versions of Python before 2.7 are not supported')
 
 if sys.platform == 'win32':  # Windows
     macros = dict()
     libraries = ['ws2_32']
-elif sys.platform.startswith('darwin'):  # Mac OSX
+elif sys.platform.startswith('darwin'):  # macOS
     macros = dict(
         HAVE_SEM_OPEN=1,
         HAVE_SEM_TIMEDWAIT=0,
         HAVE_FD_TRANSFER=1,
         HAVE_BROKEN_SEM_GETVALUE=1
-        )
+    )
     libraries = []
 elif sys.platform.startswith('cygwin'):  # Cygwin
     macros = dict(
@@ -110,7 +106,7 @@ elif sys.platform.startswith('cygwin'):  # Cygwin
         HAVE_SEM_TIMEDWAIT=1,
         HAVE_FD_TRANSFER=0,
         HAVE_BROKEN_SEM_UNLINK=1
-        )
+    )
     libraries = []
 elif sys.platform in ('freebsd4', 'freebsd5', 'freebsd6'):
     # FreeBSD's P1003.1b semaphore support is very experimental
@@ -119,9 +115,9 @@ elif sys.platform in ('freebsd4', 'freebsd5', 'freebsd6'):
         HAVE_SEM_OPEN=0,
         HAVE_SEM_TIMEDWAIT=0,
         HAVE_FD_TRANSFER=1,
-        )
+    )
     libraries = []
-elif re.match('^(gnukfreebsd(8|9|10|11)|freebsd(7|8|9|10))', sys.platform):
+elif re.match('^(gnukfreebsd(8|9|10|11)|freebsd(7|8|9|0))', sys.platform):
     macros = dict(                  # FreeBSD 7+ and GNU/kFreeBSD 8+
         HAVE_SEM_OPEN=bool(
             sysconfig.get_config_var('HAVE_SEM_OPEN') and not
@@ -150,30 +146,17 @@ if sys.platform == 'win32':
     multiprocessing_srcs = [
         'Modules/_billiard/multiprocessing.c',
         'Modules/_billiard/semaphore.c',
-        'Modules/_billiard/pipe_connection.c',
-        'Modules/_billiard/socket_connection.c',
         'Modules/_billiard/win32_functions.c',
     ]
 else:
     multiprocessing_srcs = [
         'Modules/_billiard/multiprocessing.c',
-        'Modules/_billiard/socket_connection.c',
     ]
 
     if macros.get('HAVE_SEM_OPEN', False):
         multiprocessing_srcs.append('Modules/_billiard/semaphore.c')
 
 long_description = open(os.path.join(HERE, 'README.rst')).read()
-long_description += """
-
-===========
-Changes
-===========
-
-"""
-long_description += open(os.path.join(HERE, 'CHANGES.txt')).read()
-if not is_py3k:
-    long_description = long_description.encode('ascii', 'replace')
 
 # -*- Installation Requires -*-
 
@@ -190,11 +173,6 @@ def reqs(f):
     return list(filter(None, [strip_comments(l) for l in open(
         os.path.join(os.getcwd(), 'requirements', f)).readlines()]))
 
-if py_version[0] == 3:
-    tests_require = reqs('test3.txt')
-else:
-    tests_require = reqs('test.txt')
-
 
 def _is_build_command(argv=sys.argv, cmds=('install', 'build', 'bdist')):
     for arg in argv:
@@ -202,11 +180,23 @@ def _is_build_command(argv=sys.argv, cmds=('install', 'build', 'bdist')):
             return arg
 
 
+class pytest(setuptools.command.test.test):
+    user_options = [('pytest-args=', 'a', 'Arguments to pass to py.test')]
+
+    def initialize_options(self):
+        setuptools.command.test.test.initialize_options(self)
+        self.pytest_args = []
+
+    def run_tests(self):
+        import pytest
+        sys.exit(pytest.main(self.pytest_args))
+
+
 def run_setup(with_extensions=True):
     extensions = []
     if with_extensions:
         extensions = [
-            Extension(
+            setuptools.Extension(
                 '_billiard',
                 sources=multiprocessing_srcs,
                 define_macros=macros.items(),
@@ -215,11 +205,19 @@ def run_setup(with_extensions=True):
                 depends=glob.glob('Modules/_billiard/*.h') + ['setup.py'],
             ),
         ]
-    exclude = 'billiard.py2' if is_py3k else 'billiard.py3'
-    packages = find_packages(exclude=[
-        'ez_setup', 'tests', 'funtests.*', 'tests.*', exclude,
-    ])
-    setup(
+        if sys.platform == 'win32':
+            extensions.append(
+                setuptools.Extension(
+                    '_winapi',
+                    sources=multiprocessing_srcs,
+                    define_macros=macros.items(),
+                    libraries=libraries,
+                    include_dirs=['Modules/_billiard'],
+                    depends=glob.glob('Modules/_billiard/*.h') + ['setup.py'],
+                ),
+            )
+    packages = setuptools.find_packages(exclude=['ez_setup', 't', 't.*'])
+    setuptools.setup(
         name='billiard',
         version=meta['VERSION'],
         description=meta['doc'],
@@ -228,25 +226,25 @@ def run_setup(with_extensions=True):
         ext_modules=extensions,
         author=meta['author'],
         author_email=meta['author_email'],
+        keywords='multiprocessing pool process',
         maintainer=meta['maintainer'],
         maintainer_email=meta['contact'],
         url=meta['homepage'],
         zip_safe=False,
         license='BSD',
-        tests_require=tests_require,
-        test_suite='nose.collector',
+        tests_require=reqs('test.txt'),
+        cmdclass={'test': pytest},
         classifiers=[
             'Development Status :: 5 - Production/Stable',
             'Intended Audience :: Developers',
             'Programming Language :: Python',
             'Programming Language :: C',
             'Programming Language :: Python :: 2',
-            'Programming Language :: Python :: 2.5',
-            'Programming Language :: Python :: 2.6',
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.2',
-            'Programming Language :: Python :: 3.3',
+            'Programming Language :: Python :: 3.4',
+            'Programming Language :: Python :: 3.5',
+            'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: Implementation :: CPython',
             'Programming Language :: Python :: Implementation :: Jython',
             'Programming Language :: Python :: Implementation :: PyPy',
