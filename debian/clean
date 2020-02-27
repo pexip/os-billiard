@@ -1,6 +1,5 @@
-billiard.egg-info/dependency_links.txt
-billiard.egg-info/not-zip-safe
-billiard.egg-info/PKG-INFO
-billiard.egg-info/SOURCES.txt
-billiard.egg-info/top_level.txt
 _billiard.so
+.pytest_cache/README.md
+.pytest_cache/v/cache/nodeids
+.pytest_cache/v/cache/stepwise
+billiard.egg-info/top_level.txt

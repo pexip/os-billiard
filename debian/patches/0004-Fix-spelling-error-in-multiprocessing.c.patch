@@ -1,4 +1,3 @@
-From 14fc8c9682e51c888b6ad3e0390157fb4884245e Mon Sep 17 00:00:00 2001
 From: Michael Fladischer <FladischerMichael@fladi.at>
 Date: Sat, 19 Dec 2015 21:54:38 +0100
 Subject: Fix spelling error in multiprocessing.c.
@@ -8,10 +7,10 @@ Subject: Fix spelling error in multiprocessing.c.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Modules/_billiard/multiprocessing.c b/Modules/_billiard/multiprocessing.c
-index 5eb5ad2..1d8e1af 100644
+index 0d5af9d..ad9a410 100644
 --- a/Modules/_billiard/multiprocessing.c
 +++ b/Modules/_billiard/multiprocessing.c
-@@ -262,7 +262,7 @@ bail:
+@@ -323,7 +323,7 @@ bail:
  static PyMethodDef Billiard_module_methods[] = {
      {"address_of_buffer", Billiard_multiprocessing_address_of_buffer, METH_O,
       "address_of_buffer(obj) -> int\n\n"
