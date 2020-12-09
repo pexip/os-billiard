@@ -5,7 +5,6 @@ import sys
 import glob
 
 import setuptools
-import setuptools.command.test
 
 from distutils import sysconfig
 from distutils.errors import (
@@ -165,31 +164,10 @@ is_jython = sys.platform.startswith('java')
 is_pypy = hasattr(sys, 'pypy_version_info')
 
 
-def strip_comments(l):
-    return l.split('#', 1)[0].strip()
-
-
-def reqs(f):
-    return list(filter(None, [strip_comments(l) for l in open(
-        os.path.join(os.getcwd(), 'requirements', f)).readlines()]))
-
-
 def _is_build_command(argv=sys.argv, cmds=('install', 'build', 'bdist')):
     for arg in argv:
         if arg.startswith(cmds):
             return arg
-
-
-class pytest(setuptools.command.test.test):
-    user_options = [('pytest-args=', 'a', 'Arguments to pass to py.test')]
-
-    def initialize_options(self):
-        setuptools.command.test.test.initialize_options(self)
-        self.pytest_args = []
-
-    def run_tests(self):
-        import pytest
-        sys.exit(pytest.main(self.pytest_args))
 
 
 def run_setup(with_extensions=True):
@@ -222,6 +200,7 @@ def run_setup(with_extensions=True):
         version=meta['VERSION'],
         description=meta['doc'],
         long_description=long_description,
+        long_description_content_type='text/markdown',
         packages=packages,
         ext_modules=extensions,
         author=meta['author'],
@@ -232,8 +211,6 @@ def run_setup(with_extensions=True):
         url=meta['homepage'],
         zip_safe=False,
         license='BSD',
-        tests_require=reqs('test.txt'),
-        cmdclass={'test': pytest},
         classifiers=[
             'Development Status :: 5 - Production/Stable',
             'Intended Audience :: Developers',
@@ -242,11 +219,11 @@ def run_setup(with_extensions=True):
             'Programming Language :: Python :: 2',
             'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.4',
             'Programming Language :: Python :: 3.5',
             'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.7',
+            'Programming Language :: Python :: 3.8',
             'Programming Language :: Python :: Implementation :: CPython',
-            'Programming Language :: Python :: Implementation :: Jython',
             'Programming Language :: Python :: Implementation :: PyPy',
             'Operating System :: Microsoft :: Windows',
             'Operating System :: POSIX',

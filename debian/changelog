@@ -1,3 +1,63 @@
+billiard (3.6.3.0-2) unstable; urgency=low
+
+  [ Ondřej Nový ]
+  * Bump Standards-Version to 4.4.1.
+  * d/control: Update Maintainer field with new Debian Python Team
+    contact address.
+  * d/control: Update Vcs-* fields with new Debian Python Team Salsa
+    layout.
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Bug-Database, Bug-Submit.
+  * Update standards version to 4.5.0, no changes needed.
+
+  [ Michael Fladischer ]
+  * Add upstream patch to fix Python 3.9 FTBFS (Closes: #975776).
+  * Bump debhelper version to 13.
+  * Bump Standards-Version to 4.5.1.
+  * Set Rules-Requires-Root: no.
+  * Use uscan version 4.
+  * Remove unused upstream signing key.
+  * Add Repository* fields to d/upstream/metadata.
+  * Remove debian/upstream-signing-key.pgp from include-binaries, no
+    longer used.
+
+ -- Michael Fladischer <fladi@debian.org>  Wed, 09 Dec 2020 18:37:55 +0100
+
+billiard (3.6.3.0-1) unstable; urgency=medium
+
+  [ Ondřej Nový ]
+  * Bump Standards-Version to 4.4.1.
+
+  [ Sergio Durigan Junior ]
+  * New upstream version 3.6.3.0
+  * Bump Standards-Version to 4.5.0.
+  * Add myself to the list of Uploaders.
+  * Update override_dh_auto_test rule to use "py.test-3".
+
+ -- Sergio Durigan Junior <sergiodj@debian.org>  Sat, 14 Mar 2020 01:08:51 -0400
+
+billiard (3.6.1.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Refresh patches.
+  * Clean up pytest artifacts to allow two builds in a row.
+
+ -- Michael Fladischer <fladi@debian.org>  Fri, 13 Sep 2019 12:41:21 +0200
+
+billiard (3.6.0.0-2) unstable; urgency=medium
+
+  * Team upload.
+
+  [ Ondřej Nový ]
+  * Use debhelper-compat instead of debian/compat.
+  * Bump Standards-Version to 4.4.0.
+
+  [ Andrey Rahmatullin ]
+  * Drop Python 2 support.
+
+ -- Andrey Rahmatullin <wrar@debian.org>  Fri, 09 Aug 2019 00:46:31 +0500
+
 billiard (3.6.0.0-1) unstable; urgency=low
 
   * New upstream release.

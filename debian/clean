@@ -1,5 +1,6 @@
 _billiard.so
 .pytest_cache/README.md
+.pytest_cache/CACHEDIR.TAG
 .pytest_cache/v/cache/nodeids
 .pytest_cache/v/cache/stepwise
 billiard.egg-info/top_level.txt
