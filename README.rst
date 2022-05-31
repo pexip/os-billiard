@@ -1,7 +1,7 @@
 ========
 billiard
 ========
-:version: 3.6.0.0
+:version: 3.6.3.0
 
 |build-status-lin| |build-status-win| |license| |wheel| |pyversion| |pyimp|
 
@@ -32,7 +32,7 @@ billiard
 About
 -----
 
-`billiard` is a fork of the Python 2.7 `multiprocessing <https://docs.python.org/library/multiprocessing.html>`_
+``billiard`` is a fork of the Python 2.7 `multiprocessing <https://docs.python.org/library/multiprocessing.html>`_
 package. The multiprocessing package itself is a renamed and updated version of
 R Oudkerk's `pyprocessing <https://pypi.org/project/processing/>`_ package.
 This standalone variant draws its fixes/improvements from python-trunk and provides
@@ -40,9 +40,9 @@ additional bug fixes and improvements.
 
 - This package would not be possible if not for the contributions of not only
   the current maintainers but all of the contributors to the original pyprocessing
-  package listed `here <http://pyprocessing.berlios.de/doc/THANKS.html>`_
+  package listed `here <http://pyprocessing.berlios.de/doc/THANKS.html>`_.
 
-- Also it is a fork of the multiprocessing backport package by Christian Heims.
+- Also, it is a fork of the multiprocessing backport package by Christian Heims.
 
 - It includes the no-execv patch contributed by R. Oudkerk.
 
@@ -53,9 +53,19 @@ additional bug fixes and improvements.
 
 .. _`Celery`: http://celeryproject.org
 
+Documentation
+-------------
+
+The documentation for ``billiard`` is available on `Read the Docs <https://billiard.readthedocs.io>`_.
+
 Bug reporting
 -------------
 
 Please report bugs related to multiprocessing at the
 `Python bug tracker <https://bugs.python.org/>`_. Issues related to billiard
 should be reported at https://github.com/celery/billiard/issues.
+
+billiard as part of the Tidelift Subscription
+-------------
+
+The maintainers of billiard and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open source dependencies you use to build your applications. Save time, reduce risk, and improve code health, while paying the maintainers of the exact dependencies you use. [Learn more.](https://tidelift.com/subscription/pkg/pypi-billiard?utm_source=pypi-billiard&utm_medium=referral&utm_campaign=readme&utm_term=repo)
