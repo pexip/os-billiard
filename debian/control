@@ -30,7 +30,7 @@ Homepage: https://github.com/celery/billiard
 Vcs-Git: https://salsa.debian.org/python-team/modules/billiard.git
 Vcs-Browser: https://salsa.debian.org/python-team/modules/billiard
 Testsuite: autopkgtest-pkg-python
-XS-Pexip-Upstream: http://ftp.debian.org/debian/ buster
+XS-Pexip-Upstream: http://deb.debian.org/debian/ bullseye
 
 Package: python-billiard
 Architecture: any
