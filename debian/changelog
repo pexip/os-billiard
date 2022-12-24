@@ -1,3 +1,64 @@
+billiard (4.1.0-1) unstable; urgency=medium
+
+  * New upstream version 4.1.0
+  * d/control: Bump Standards-Version to 4.6.2; no changes needed.
+  * d/changelog: Mark last entry as "Team upload".
+
+ -- Sergio Durigan Junior <sergiodj@debian.org>  Sat, 24 Dec 2022 00:01:53 -0500
+
+billiard (4.0.2-3) unstable; urgency=medium
+
+  * Team upload.
+  [ Debian Janitor ]
+  * Apply multi-arch hints. + python-billiard-doc: Add Multi-Arch: foreign.
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Fri, 28 Oct 2022 18:58:36 +0100
+
+billiard (4.0.2-2) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Set upstream metadata fields: Security-Contact.
+
+ -- Jelmer Vernooĳ <jelmer@debian.org>  Mon, 17 Oct 2022 00:33:49 +0100
+
+billiard (4.0.2-1) unstable; urgency=low
+
+  * New upstream release.
+  * Use github.com in d/watch.
+  * Clean up billiard.egg-info/* to allow two builds in a row.
+
+ -- Michael Fladischer <fladi@debian.org>  Tue, 13 Sep 2022 10:36:37 +0000
+
+billiard (4.0.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Bump Standards-Version to 4.6.1.0.
+  * Update year in d/copyright.
+  * Drop patches for issues fixed by upstream.
+  * Refresh patches.
+  * Depend on python3-all for autopkgtests.
+
+ -- Michael Fladischer <fladi@debian.org>  Thu, 30 Jun 2022 07:17:35 +0000
+
+billiard (3.6.4.0-2) unstable; urgency=medium
+
+  * Clean up billiard.egg-info/PKG-INFO to allow two builds in a row.
+  * Bump Standards-Version to 4.6.0.1.
+  * Add patch to fix invalid syntax in sphinx configuration (Closes:
+    #997654).
+  * Run tests in build directory instead of source directory.
+  * Enable upstream testsuite for autopkgtests.
+  * Remove unnecessary autopkgtest-pkg-python testsuite.
+
+ -- Michael Fladischer <fladi@debian.org>  Thu, 28 Oct 2021 11:40:43 +0000
+
+billiard (3.6.4.0-1) unstable; urgency=low
+
+  * New upstream release.
+  * Refresh patches.
+
+ -- Michael Fladischer <fladi@debian.org>  Sun, 15 Aug 2021 13:42:17 +0000
+
 billiard (3.6.3.0-2) unstable; urgency=low
 
   [ Ondřej Nový ]

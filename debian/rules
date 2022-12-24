@@ -1,6 +1,9 @@
 #!/usr/bin/make -f
 
 export PYBUILD_NAME=billiard
+export PYBUILD_BEFORE_TEST=cp -r {dir}/t {build_dir}
+export PYBUILD_AFTER_TEST=rm -rf {build_dir}/t
+export PYBUILD_TEST_ARGS=t/unit
 export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
 %:
@@ -17,12 +20,3 @@ ifeq (,$(findstring nodoc, $(DEB_BUILD_OPTIONS)))
 	PYTHONPATH=. python3 -m sphinx -b html -N Doc $(CURDIR)/debian/python-billiard-doc/usr/share/doc/python-billiard-doc/html
 	dh_sphinxdoc
 endif
-
-override_dh_auto_test:
-ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
-	PYBUILD_SYSTEM=custom PYBUILD_TEST_ARGS="py.test-3" \
-	dh_auto_test
-endif
-
-override_dh_clean:
-	dh_clean

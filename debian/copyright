@@ -33,7 +33,7 @@ License: PSF-2
 Copyright: 2006-2008, R Oudkerk
 
 Files: debian/*
-Copyright: 2013-2015, Michael Fladischer <fladi@debian.org>
+Copyright: 2013-2022, Michael Fladischer <fladi@debian.org>
            2012, Thomas Bechtold
 License: BSD-3-clause
 

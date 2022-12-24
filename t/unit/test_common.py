@@ -1,13 +1,12 @@
-from __future__ import absolute_import
-
 import os
 import pytest
 import signal
 
 from contextlib import contextmanager
 from time import time
+from unittest.mock import patch, Mock, call
 
-from case import Mock, call, patch, skip
+from t import skip
 
 from billiard.common import (
     _shutdown_cleanup,
