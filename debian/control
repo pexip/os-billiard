@@ -17,11 +17,10 @@ Build-Depends:
  python3-pytest,
  python3-setuptools,
  python3-sphinx,
-Standards-Version: 4.5.1
+Standards-Version: 4.6.2
 Homepage: https://github.com/celery/billiard
 Vcs-Git: https://salsa.debian.org/python-team/packages/billiard.git
 Vcs-Browser: https://salsa.debian.org/python-team/packages/billiard
-Testsuite: autopkgtest-pkg-python
 Rules-Requires-Root: no
 XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
 
@@ -32,6 +31,7 @@ Depends:
  libjs-jquery,
  ${misc:Depends},
  ${sphinxdoc:Depends},
+Multi-Arch: foreign
 Description: Multiprocessing Pool Extensions for Python (Documentation)
  This package contains extensions to the multiprocessing Pool.
  It extends the multiprocessing.Pool with a billiard.pool.DynamicPool
