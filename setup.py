@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os
 import sys
 import glob
@@ -19,7 +17,6 @@ if sys.platform == 'win32':
     # distutils.msvc9compiler can raise IOError if the compiler is missing
     ext_errors += (IOError, )
 
-is_jython = sys.platform.startswith('java')
 is_pypy = hasattr(sys, 'pypy_version_info')
 is_py3k = sys.version_info[0] == 3
 
@@ -85,8 +82,8 @@ finally:
     meta_fh.close()
 
 
-if sys.version_info < (2, 7):
-    raise ValueError('Versions of Python before 2.7 are not supported')
+if sys.version_info < (3, 7):
+    raise ValueError('Versions of Python before 3.7 are not supported')
 
 if sys.platform == 'win32':  # Windows
     macros = dict()
@@ -160,7 +157,6 @@ long_description = open(os.path.join(HERE, 'README.rst')).read()
 # -*- Installation Requires -*-
 
 py_version = sys.version_info
-is_jython = sys.platform.startswith('java')
 is_pypy = hasattr(sys, 'pypy_version_info')
 
 
@@ -200,7 +196,6 @@ def run_setup(with_extensions=True):
         version=meta['VERSION'],
         description=meta['doc'],
         long_description=long_description,
-        long_description_content_type='text/markdown',
         packages=packages,
         ext_modules=extensions,
         author=meta['author'],
@@ -211,18 +206,18 @@ def run_setup(with_extensions=True):
         url=meta['homepage'],
         zip_safe=False,
         license='BSD',
+        python_requires='>=3.7',
         classifiers=[
             'Development Status :: 5 - Production/Stable',
             'Intended Audience :: Developers',
             'Programming Language :: Python',
             'Programming Language :: C',
-            'Programming Language :: Python :: 2',
-            'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.5',
-            'Programming Language :: Python :: 3.6',
             'Programming Language :: Python :: 3.7',
             'Programming Language :: Python :: 3.8',
+            'Programming Language :: Python :: 3.9',
+            'Programming Language :: Python :: 3.10',
+            'Programming Language :: Python :: 3.11',
             'Programming Language :: Python :: Implementation :: CPython',
             'Programming Language :: Python :: Implementation :: PyPy',
             'Operating System :: Microsoft :: Windows',
@@ -235,7 +230,7 @@ def run_setup(with_extensions=True):
     )
 
 try:
-    run_setup(not (is_jython or is_pypy or is_py3k))
+    run_setup(not (is_pypy or is_py3k))
 except BaseException:
     if _is_build_command(sys.argv):
         import traceback
