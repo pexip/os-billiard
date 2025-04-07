@@ -1,0 +1,32 @@
+From: Colin Watson <cjwatson@debian.org>
+Date: Mon, 7 Apr 2025 11:13:05 +0100
+Subject: Copy `code.co_qualname` on Python >= 3.11
+
+As of the changes to `linecache` in
+https://github.com/python/cpython/issues/117174, logging tracebacks
+requires code objects to have a `co_qualname` attribute, which is true
+for native Python code objects as of 3.11.  Adjust billiard's emulation
+of them to match.
+
+Spotted by pagure's tests in https://bugs.debian.org/1101621; analysis
+and patch by Rebecca N. Palmer <rebecca_palmer@zoho.com>.
+
+Forwarded: https://github.com/celery/billiard/pull/423
+Bug-Debian: https://bugs.debian.org/1101621
+Last-Update: 2025-04-07
+---
+ billiard/einfo.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/billiard/einfo.py b/billiard/einfo.py
+index 8ea736a..23ea4d2 100644
+--- a/billiard/einfo.py
++++ b/billiard/einfo.py
+@@ -23,6 +23,7 @@ class _Code:
+         self.co_stacksize = code.co_stacksize
+         self.co_varnames = ()
+         if sys.version_info >= (3, 11):
++            self.co_qualname = code.co_qualname
+             self._co_positions = list(code.co_positions())
+ 
+     if sys.version_info >= (3, 11):

@@ -1,3 +1,23 @@
+4.2.1 - 2024-09-21
+--------------------
+- Remove `SIGUSR2` from `TERMSIGS_DEAULT`
+- Add on_ready_counter to Worker.__reduce__.
+- Adapt for logging lock internal changes in Python3.13
+- blacksmith.sh: Migrate workflows to blacksmith
+- Prepare for release: v4.2.1
+
+4.2.0 - 2023-11-06
+--------------------
+- Update process.py to close during join only if process has completed.
+- Adjust the __repr__ in ApplyResult.
+- Remove python 3.7 from CI.
+- Added Python 3.12 support.
+- Fixed (co_positions): resolve issue caused by absence co_positions (#395).
+- Fixed: Replaced mktemp usage for Python 3 from python 2.
+- Changed nose test to pytest (#397) in Integration test.
+- Changed nose dependency for unit test (#383).
+
+
 4.1.0 - 2022-12-14
 --------------------
 - Fixed a python 2 to 3 compat issue which was missed earlier (#374).

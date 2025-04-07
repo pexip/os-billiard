@@ -1,0 +1,33 @@
+From: Michael Fladischer <FladischerMichael@fladi.at>
+Date: Wed, 29 Nov 2023 16:38:05 +0000
+Subject: Remove distutils code in preparation for Python 3.12.
+
+---
+ setup.py | 12 +-----------
+ 1 file changed, 1 insertion(+), 11 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index d926f81..b755e0f 100644
+--- a/setup.py
++++ b/setup.py
+@@ -4,19 +4,9 @@ import glob
+ 
+ import setuptools
+ 
+-from distutils import sysconfig
+-from distutils.errors import (
+-    CCompilerError,
+-    DistutilsExecError,
+-    DistutilsPlatformError
+-)
++import sysconfig
+ HERE = os.path.dirname(os.path.abspath(__file__))
+ 
+-ext_errors = (CCompilerError, DistutilsExecError, DistutilsPlatformError)
+-if sys.platform == 'win32':
+-    # distutils.msvc9compiler can raise IOError if the compiler is missing
+-    ext_errors += (IOError, )
+-
+ is_pypy = hasattr(sys, 'pypy_version_info')
+ is_py3k = sys.version_info[0] == 3
+ 
