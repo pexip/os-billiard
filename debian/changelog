@@ -1,3 +1,42 @@
+billiard (4.2.1-2) unstable; urgency=medium
+
+  * Team upload.
+  * Copy `code.co_qualname` on Python >= 3.11 (thanks, Rebecca N. Palmer;
+    closes: #1101621).
+
+ -- Colin Watson <cjwatson@debian.org>  Mon, 07 Apr 2025 15:56:55 +0100
+
+billiard (4.2.1-1) unstable; urgency=low
+
+  * New upstream version 4.2.1
+  * Bump Standards-Version to 4.7.0.
+  * Update year in d/copyright.
+
+ -- Michael Fladischer <fladi@debian.org>  Mon, 14 Oct 2024 14:25:13 +0000
+
+billiard (4.2.0-3) unstable; urgency=medium
+
+  * Team upload.
+  * Remove dependency on python3-case
+
+ -- Alexandre Detiste <tchet@debian.org>  Wed, 15 May 2024 01:23:35 +0200
+
+billiard (4.2.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * Remove dependency on python3-mock
+
+ -- Alexandre Detiste <tchet@debian.org>  Thu, 14 Mar 2024 22:59:12 +0100
+
+billiard (4.2.0-1) unstable; urgency=low
+
+  * New upstream version 4.2.0
+  * Refresh patches.
+  * Add patch to remove distutils code in preparation for Python 3.12.
+  * Update year in d/copyright.
+
+ -- Michael Fladischer <fladi@debian.org>  Wed, 29 Nov 2023 18:08:26 +0000
+
 billiard (4.1.0-1+pexip24u3) pexip-bookworm; urgency=medium
 
   * New versioning scheme

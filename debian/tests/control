@@ -1,6 +1,7 @@
 Tests: upstream
 Depends:
  python3-all,
+ python3-psutil,
+ python3-pytest,
  @,
- @builddeps@,
 Restrictions: allow-stderr

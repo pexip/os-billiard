@@ -1,1 +1,3 @@
 0001-hurd.patch
+0002-Remove-distutils-code-in-preparation-for-Python-3.12.patch
+co-qualname.patch

@@ -9,15 +9,13 @@ XSBC-Pexip-Original-Uploaders:
  Sergio Durigan Junior <sergiodj@debian.org>,
 Build-Depends:
  debhelper-compat (= 13),
- dh-python,
+ dh-sequence-python3,
  python3-all,
- python3-case,
- python3-mock,
- python3-psutil,
- python3-pytest,
+ python3-psutil <!nocheck>,
+ python3-pytest <!nocheck>,
  python3-setuptools,
- python3-sphinx,
-Standards-Version: 4.6.2
+ python3-sphinx <!nodoc>,
+Standards-Version: 4.7.0
 Homepage: https://github.com/celery/billiard
 Vcs-Git: https://salsa.debian.org/python-team/packages/billiard.git
 Vcs-Browser: https://salsa.debian.org/python-team/packages/billiard
