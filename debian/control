@@ -22,7 +22,7 @@ Homepage: https://github.com/celery/billiard
 Vcs-Git: https://salsa.debian.org/python-team/packages/billiard.git
 Vcs-Browser: https://salsa.debian.org/python-team/packages/billiard
 Rules-Requires-Root: no
-XS-Pexip-Upstream: http://deb.debian.org/debian/ bookworm
+XS-Pexip-Upstream: http://deb.debian.org/debian/ trixie
 
 Package: python-billiard-doc
 Section: doc
